@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROBOGÖZ - Yosun Bazlı Biyobozunur Şişeler</title>
+    <style>
+        :root {
+            --primary-color: #2e8b57;
+            --secondary-color: #3cb371;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        section:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text h3 {
+            margin-bottom: 1rem;
+            color: var (--primary-color);
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-content {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .process-steps {
+            margin-top: 3rem;
+            position: relative;
+        }
+        
+        .process-step {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .achievements {
+            text-align: center;
+        }
+        
+        .achievement-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .achievement-card {
+            background-color: var(--white);
+            padding: 2rem 1rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .achievement-icon {
+            font-size: 2.5rem;
+            color: var (--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .future-goals {
+            margin-top: 3rem;
+        }
+        
+        .goal {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .goal-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+        
+        .contact-item {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-text {
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+                z-index: 1001;
+            }
+            
+            .hamburger div {
+                width: 25px;
+                height: 3px;
+                background-color: var(--white);
+                margin: 5px 0;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.5s ease;
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .hamburger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .hamburger.active div:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* New styles for visual enhancements */
+        .text-center {
+            text-align: center;
+        }
+        
+        .section-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 10px;
+            margin: 2rem auto;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .icon-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .icon-item {
+            text-align: center;
+            width: 150px;
+        }
+        
+        .icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(46, 139, 87, 0.8);
+            padding: 1rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        .process-image {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background-color: var(--white);
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .highlight-box h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .infographic {
+            position: relative;
+            padding: 3rem 0;
+            margin: 3rem 0;
+            background: url('https://images.unsplash.com/photo-1559825481-12a05cc00344?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat fixed;
+        }
+        
+        .infographic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1;
+        }
+        
+        .infographic-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contact-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 3rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+        }
+
+        /* Stats counter section */
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 3rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        /* Background pattern for certain sections */
+        .bg-pattern {
+            background-color: var(--light-bg);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233cb371' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Responsive for new elements */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .gallery-item {
+                height: 200px;
+            }
+            
+            .icon-grid {
+                gap: 1rem;
+            }
+            
+            .icon-item {
+                width: 120px;
+            }
+            
+            .process-image {
+                width: 50px;
+                height: 50px;
+                right: 10px;
+                top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">ROBOGÖZ</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Ana Sayfa</a></li>
+                    <li><a href="#about">Hakkımızda</a></li>
+                    <li><a href="#products">Yenilikçi Çözümler</a></li>
+                    <li><a href="#process">Üretim Süreci</a></li>
+                    <li><a href="#achievements">Kazanımlar</a></li>
+                    <li><a href="#goals">Hedefler</a></li>
+                    <li><a href="#contact">İletişim</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Yosun Bazlı Biyobozunur Şişeler</h1>
+            <p>Doğadan ilham, plastik kirliliğine çözüm!</p>
+            <a href="#about" class="btn">Keşfedin</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Projemiz Hakkında</h2>
+            <img src="https://images.pexels.com/photos/127673/pexels-photo-127673.jpeg" alt="Deniz Yosunları" class="section-image">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Takım ve Proje Bilgileri</h3>
+                    <p><strong>Takım Adı:</strong> ROBOGÖZ LTD MAVİGÖZ</p>
+                    <p><strong>Proje Adı:</strong> Yosun Bazlı Biyobozunur Şişeler</p>
+                    <p><strong>Ana Hedef:</strong> Geleneksel plastiklerin yerine doğada 6-12 ay içinde tamamen çözünebilen, sürdürülebilir ve sağlıklı ambalaj çözümleri üretmek.</p>
+                </div>
+                <div class="about-text">
+                    <h3>Projemizin Özeti</h3>
+                    <p>Okyanuslardaki Çözüm, Elinizde!</p>
+                    <ul>
+                        <li>Chlorella ve Spirulina türü algler ve deniz yosunlarından elde edilen doğal biyopolimerler</li>
+                        <li>500 yılda çözünen plastiklere alternatif, 6-12 ayda tamamen doğaya karışan ambalajlar</li>
+                        <li>Asitli, alkollü ve sıcak içeceklere dayanıklı, insan sağlığı için güvenli şişeler</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="icon-grid">
+                <div class="icon-item">
+                    <div class="icon">♻️</div>
+                    <h4>Sürdürülebilir</h4>
+                </div>
+                <div class="icon-item">
+                    <div class="icon">🌊</div>
+                    <h4>Deniz Dostu</h4>
+                </div>
+                <div class="icon-item">
+                    <div class="icon">🌱</div>
+                    <h4>Doğal</h4>
+                </div>
+                <div class="icon-item">
+                    <div class="icon">🌍</div>
+                    <h4>Yenilenebilir</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">Deniz Yosunu Biyoteknolojimiz</h2>
+            <p class="text-center">Okyanuslardaki alg ve yosunlardan ilham alarak geliştirdiğimiz biyopolimerler, geleneksel plastiğin yerini alarak çevre kirliliğine son veriyor.</p>
+            <div class="products">
+                <div class="product-card">
+                    <img src="https://images.pexels.com/photos/2874754/pexels-photo-2874754.jpeg" alt="Çevre Dostu Şişe" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-title">Çevre Dostu & Biyobozunur</h3>
+                        <p>%100 doğal deniz kaynaklarından üretilen, 6-12 ayda toprakta ve denizde tamamen çözünen yapı.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.pexels.com/photos/1337825/pexels-photo-1337825.jpeg" alt="Sağlıklı Şişe" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-title">Sağlıklı & Toksin İçermez</h3>
+                        <p>BPA ve mikroplastik içermeyen, gıda güvenliği sertifikalı, insan sağlığına duyarlı formül.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.pexels.com/photos/1367243/pexels-photo-1367243.jpeg" alt="Dayanıklı Şişe" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-title">-30°C'den +100°C'ye Dayanım</h3>
+                        <p>Dondurulmuş gıdalardan sıcak içeceklere kadar geniş sıcaklık aralığında performans gösteren biyopolimer teknolojisi.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.pexels.com/photos/3698534/pexels-photo-3698534.jpeg" alt="Karbon Ayak İzi" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-title">%78 Daha Az Karbon Ayak İzi</h3>
+                        <p>Geleneksel PET üretimine kıyasla çok daha düşük enerji tüketimi ve karbon salınımı.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="highlight-box">
+        <div class="container">
+            <h3>Plastik Şişelere Sürdürülebilir Alternatif</h3>
+            <p>Her yıl 8 milyon ton plastik okyanuslara karışıyor. Yosun bazlı çözümlerimizle bu soruna son veriyoruz.</p>
+            <a href="#contact" class="btn" style="margin-top: 1rem;">Bizimle İletişime Geçin</a>
+        </div>
+    </div>
+
+    <section id="gallery" class="bg-pattern">
+        <div class="container">
+            <h2 class="section-title">Ürün Galerimiz</h2>
+            <p class="text-center">Yosun bazlı biyopolimerlerimizden üretilmiş çeşitli ambalaj çözümlerimiz</p>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/1000084/pexels-photo-1000084.jpeg" alt="Yosun Şişe 1" class="gallery-image">
+                    <div class="gallery-caption">
+                        <h4>Su Şişesi</h4>
+                        <p>500ml, Tamamen doğal</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/1484516/pexels-photo-1484516.jpeg" alt="Yosun Şişe 2" class="gallery-image">
+                    <div class="gallery-caption">
+                        <h4>Meyve Suyu Şişesi</h4>
+                        <p>330ml, Asit dayanımlı</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/1203803/pexels-photo-1203803.jpeg" alt="Yosun Şişe 3" class="gallery-image">
+                    <div class="gallery-caption">
+                        <h4>Sıcak İçecek Kabı</h4>
+                        <p>250ml, Isı yalıtımlı</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/1266307/pexels-photo-1266307.jpeg" alt="Yosun Şişe 4" class="gallery-image">
+                    <div class="gallery-caption">
+                        <h4>Kozmetik Ambalaj</h4>
+                        <p>100ml, UV korumalı</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process">
+        <div class="container">
+            <h2 class="section-title">Biyopolimer Üretim Sürecimiz</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Sürdürülebilir Yosun Hasatı</h3>
+                    <p>Kontrollü yetiştirme havuzlarından elde edilen yosunlar, çevreye zarar vermeden toplanır ve patentli yöntemlerle işlenir.</p>
+                    <img src="https://images.unsplash.com/photo-1596565200223-b5f9f60e3fad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Yosun Hasatı" class="process-image">
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Alginat Ekstraksiyonu & Biyopolimer Sentezi</h3>
+                    <p>Laboratuvar ortamında yosunlardan elde edilen alginatlar ve diğer doğal polimerler özel formülasyonla birleştirilir.</p>
+                    <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Laboratuvar" class="process-image">
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>İleri Kalıplama & Performans Testleri</h3>
+                    <p>Endüstriyel standartları karşılayan dayanıklılık, sızdırmazlık ve raf ömrü testlerinden geçer.</p>
+                    <img src="https://images.unsplash.com/photo-1581093199835-6b7f26fa4b55?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kalıplama" class="process-image">
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Ekolojik Yaşam Döngüsü</h3>
+                    <p>Kullanım sonrası kompostlanabilir yapısı sayesinde, toprakta besin değerine dönüşerek doğayı besler.</p>
+                    <img src="https://images.unsplash.com/photo-1582748151341-03d12853f069?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kompostlama" class="process-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="infographic">
+        <div class="container infographic-content">
+            <h2 class="section-title">Plastik vs. Yosun Bazlı Ambalaj</h2>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Plastiklerin doğada çözünme süresi (yıl)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6-12</div>
+                    <div class="stat-label">Ürünlerimizin çözünme süresi (ay)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">78%</div>
+                    <div class="stat-label">Daha az karbon emisyonu</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Mikroplastik kalıntısı</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="bg-light">
+        <div class="container achievements">
+            <h2 class="section-title">Çevresel Kazanımlarımız</h2>
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Temiz Okyanus" class="section-image">
+            <div class="achievement-cards">
+                <div class="achievement-card">
+                    <div class="achievement-icon">✅</div>
+                    <h3>%98 Biyobozunur Yapı</h3>
+                    <p>Plastik şişelerin aksine, doğada mikroplastiğe dönüşmeden tamamen çözünme</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">✅</div>
+                    <h3>İleri Malzeme Teknolojisi</h3>
+                    <p>-30°C ile +100°C arasında yapısal bütünlüğünü koruyan termostabil formül</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">✅</div>
+                    <h3>Karbon Negatif Üretim</h3>
+                    <p>Alg yetiştirme sürecinde atmosferden CO₂ emilimi sayesinde negatif karbon ayak izi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="goals">
+        <div class="container">
+            <h2 class="section-title">Gelecek Vizyonumuz</h2>
+            <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sürdürülebilir Gelecek" class="section-image">
+            <div class="future-goals">
+                <div class="goal">
+                    <span class="goal-icon">🚀</span>
+                    <h3>Küresel Plastik Tüketimini %30 Azaltma</h3>
+                    <p>2030 yılına kadar içecek ambalajlarında biyopolimer kullanımını yaygınlaştırmak</p>
+                </div>
+                <div class="goal">
+                    <span class="goal-icon">💡</span>
+                    <h3>Biyobozunur Malzeme Standartları Geliştirme</h3>
+                    <p>Uluslararası sertifikasyon sistemlerine yön veren araştırmalara öncülük etmek</p>
+                </div>
+                <div class="goal">
+                    <span class="goal-icon">🔬</span>
+                    <h3>Yeni Nesil Biyonanokompozitler</h3>
+                    <p>Sadece şişeler değil, tüm plastik ambalajları ikame edecek malzeme çeşitliliği sağlamak</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">İletişim & Destek</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <h3>Email</h3>
+                    <p>goztepemtal1923@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <h3>Telefon</h3>
+                    <p>+90 541 325 35 09</p>
+                </div>
+            </div>
+            <!-- Contact form removed as requested -->
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="footer-text">✨ OKYANUSLARI KORUMAK İÇİN, PLASTİKTEN VAZGEÇİN! ✨</p>
+            <p>&copy; 2025 ROBOGÖZ LTD MAVİGÖZ. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            const links = document.querySelectorAll('.nav-links a');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
